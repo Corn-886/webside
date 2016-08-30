@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webside.village.mapper.VillageMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+		<sql id="villageAttributes">
+		v_name,
+		v_id,
+		v_phone,
+		v_address,
+		v_desc,
+		v_logo,
+		v_create_time,
+		v_inuse_flag
+		</sql>
+	<resultMap id="villageMap" type="com.webside.village.model.Village">
+	<id property="id" column="v_id"/>
+	<result property="vName" column="v_name" />
+	<result property="vPhone" column="v_phone" />
+	<result property="vAddress" column="v_address" />
+	<result property="vDesc" column="v_desc" />
+	<result property="vLogo" column="v_logo" />
+	<result property="vCreateTime" column="v_create_time" />
+	<result property="vInuseFlag" column="v_inuse_flag" />
+	</resultMap>
+
+		<insert id="insert" parameterType="com.webside.village.model.Village" useGeneratedKeys="true" keyProperty="id">
+		insert ignore into tb_village (
+			v_name,
+			v_phone,
+			v_address,
+			v_desc,
+			v_logo,
+			v_create_time,
+			v_inuse_flag
+			)   
+		values (
+			#{vName},
+			#{vPhone},
+			#{vAddress},
+			#{vDesc},
+			#{vLogo},
+			now(),
+			#{vInuseFlag}
+			)  
+	</insert>
+	<select id="queryListByPage" parameterType="map" resultMap="villageMap" flushCache="true" useCache="true">
+		SELECT 
+		<include refid="villageAttributes" />
+		FROM tb_village 
+		
+	</select>
+	
+	</mapper>

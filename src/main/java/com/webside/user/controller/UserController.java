@@ -36,6 +36,8 @@ import com.webside.util.Common;
 import com.webside.util.EndecryptUtils;
 import com.webside.util.PageUtil;
 import com.webside.util.RandomUtil;
+import com.webside.village.model.Village;
+import com.webside.village.service.VillageService;
 
 @Controller
 @Scope("prototype")
@@ -47,6 +49,9 @@ public class UserController extends BaseController {
 	
 	@Autowired
 	private RoleService roleService;
+	
+	@Autowired
+	private VillageService villageService;
 	
 	@RequestMapping("listUI.html")
 	public String listUI(Model model, HttpServletRequest request) {
@@ -128,6 +133,8 @@ public class UserController extends BaseController {
 		try
 		{
 			List<RoleEntity> list = roleService.queryListByPage(new HashMap<String, Object>());
+			List<Village> list_v=villageService.queryListByPage(new HashMap<String, Object>());
+			model.addAttribute("villageList", list_v);
 			model.addAttribute("roleList", list);
 			return Common.BACKGROUND_PATH + "/user/form";
 		}catch(Exception e)

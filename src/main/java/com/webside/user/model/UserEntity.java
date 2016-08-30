@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.webside.base.basemodel.BaseEntity;
 import com.webside.role.model.RoleEntity;
+import com.webside.village.model.Village;
 
 public class UserEntity extends BaseEntity{
 
@@ -48,7 +49,11 @@ public class UserEntity extends BaseEntity{
 	private UserInfoEntity userInfo;
 	
 	private String roleName;
-
+	/**
+	 * 村居信息
+	 */
+	private Village village;
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -151,15 +156,28 @@ public class UserEntity extends BaseEntity{
 		return roleName;
 	}
 
+	public Village getVillage() {
+		return village;
+	}
+
+	public void setVillage(Village village) {
+		this.village = village;
+	}
+
 	@Override
 	public String toString() {
-		return "UserEntity [id="+ id +", userName=" + userName + ", accountName="
-				+ accountName + ", password=" + password + ", deleteStatus="
-				+ deleteStatus + ", locked=" + locked + ", description="
-				+ description + ", credentialsSalt=" + credentialsSalt
-				+ ", creatorName=" + creatorName + ", createTime=" + createTime
-				+ ", updateTime=" + updateTime + ", role=" + role + "]";
+		return "UserEntity [userName=" + userName + ", accountName=" + accountName + ", password=" + password
+				+ ", deleteStatus=" + deleteStatus + ", locked=" + locked + ", description=" + description
+				+ ", credentialsSalt=" + credentialsSalt + ", creatorName=" + creatorName + ", createTime=" + createTime
+				+ ", updateTime=" + updateTime + ", role=" + role + ", userInfo=" + userInfo + ", roleName=" + roleName
+				+ ", village=" + village + "]";
 	}
+
+
+
+
+
+	
 
 
 	
