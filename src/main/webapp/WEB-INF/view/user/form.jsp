@@ -145,7 +145,7 @@
 					for="description">所属村居</label>
 				<div class="col-sm-10">
 					<div class="clearfix">
-						<select class="form-control" name="village.id" id="villageId"
+						<select class="form-control" name="userInfo.village.id" id="villageId"
 							style="width: 100%">
 							<option value=""></option>
 							<c:forEach var="village" items="${villageList }">

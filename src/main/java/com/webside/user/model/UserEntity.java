@@ -49,10 +49,8 @@ public class UserEntity extends BaseEntity{
 	private UserInfoEntity userInfo;
 	
 	private String roleName;
-	/**
-	 * 村居信息
-	 */
-	private Village village;
+
+	private String villageName;
 	
 	public String getUserName() {
 		return userName;
@@ -150,19 +148,19 @@ public class UserEntity extends BaseEntity{
 
 	public void setUserInfo(UserInfoEntity userInfo) {
 		this.userInfo = userInfo;
+		if(userInfo.getVillage()!=null){
+		this.villageName=userInfo.getVillage().getvName();}
 	}
 	
 	public String getRoleName() {
 		return roleName;
 	}
-
-	public Village getVillage() {
-		return village;
+	
+	public String getVillageName() {
+		return villageName;
 	}
 
-	public void setVillage(Village village) {
-		this.village = village;
-	}
+
 
 	@Override
 	public String toString() {
@@ -170,15 +168,12 @@ public class UserEntity extends BaseEntity{
 				+ ", deleteStatus=" + deleteStatus + ", locked=" + locked + ", description=" + description
 				+ ", credentialsSalt=" + credentialsSalt + ", creatorName=" + creatorName + ", createTime=" + createTime
 				+ ", updateTime=" + updateTime + ", role=" + role + ", userInfo=" + userInfo + ", roleName=" + roleName
-				+ ", village=" + village + "]";
+				+ ", villageName=" + villageName + "]";
 	}
 
 
 
-
-
 	
-
 
 	
 }

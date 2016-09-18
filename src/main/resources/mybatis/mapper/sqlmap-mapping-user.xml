@@ -27,7 +27,8 @@
 		u_telephone,
 		u_email,
 		u_address,
-		u_create_time
+		u_create_time,
+		u_village_id
 	</sql>
 
 	<resultMap id="userMap" type="com.webside.user.model.UserEntity">
@@ -49,7 +50,7 @@
 			<result property="status" column="r_status"/>
 			<result property="description" column="r_description"/>
 			<result property="createTime" column="r_create_time"/>
-			<result property="updateTime" column="r_update_time"/>
+			<result property="villageid" column="u_village_id"/>
 		</association>
 		<association property="userInfo" column="id" javaType="com.webside.user.model.UserInfoEntity">
 			<id property="id" column="u_id"/>
@@ -59,7 +60,13 @@
 			<result property="email" column="u_email"/>
 			<result property="address" column="u_address"/>
 			<result property="createTime" column="u_create_time"/>
+			<result property="createTime" column="u_create_time"/>
+			<association property="village" column="id" javaType="com.webside.village.model.Village">
+			<id property="id" column="v_id"/>
+			<id property="vName" column="v_name"/>
+			</association>
 		</association>
+		
 	</resultMap>
 	
 	<select id="queryListByPage" parameterType="map" resultMap="userMap" flushCache="true" useCache="true">
@@ -90,14 +97,18 @@
 		r.r_status,
 		r.r_description,
 		r.r_create_time,
-		r.r_update_time
-		FROM tb_user u LEFT JOIN tb_role_user ru ON u.u_id = ru.u_id LEFT JOIN tb_role r ON ru.r_id = r.r_id 
+		r.r_update_time,
+		v.v_id,
+		v.v_name
+		
+		FROM tb_user u LEFT JOIN tb_role_user ru ON u.u_id = ru.u_id LEFT JOIN tb_role r ON ru.r_id = r.r_id LEFT JOIN tb_user_info ui ON u.u_id=ui.u_id LEFT JOIN tb_village v ON ui.u_village_id=v.v_id 
 		<where>
 			<if test="userName != null and userName != ''">
 				u.u_name=#{userName} or u.u_account_name=#{userName}
 			</if>
 			<if test="creatorName !=null and creatorName != ''">
 				and u.u_creator_name = #{creatorName}
+				
 			</if>
 		</where>
 	</select>
@@ -277,7 +288,8 @@
 			#{userInfo.telephone},
 			#{userInfo.email},
 			#{userInfo.address},
-			#{userInfo.createTime}
+			#{userInfo.createTime},
+			#{userInfo.village.id}
 			)  
 	</insert>
 	

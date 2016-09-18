@@ -35,6 +35,21 @@ var dtGridColumns = [{
         }
     }
 }, {
+    id : 'villageName',
+    title : '所属村居/组织',
+    type : 'string',
+    columnClass : 'text-center',
+    headerClass : 'dlshouwen-grid-header',
+    hideType : 'xs',
+    resolution : function(value, record, column, grid, dataNo, columnNo) {
+
+        if (/*typeof(value) == "undefined" ||*/ "" == value || null == value) {
+            return '未指定';
+        } else {
+            return value;
+        }
+    }
+}, {
     id : 'deleteStatus',
     title : '是否删除',
     type : 'string',

@@ -202,6 +202,7 @@ var webside = {
             //组装表单数据
             var index;
             var data = $("#" + formId).serialize();
+            console.log('数据'+data);
             if (undefined != $("#pageNum").val()) {
                 jumpUrl = jumpUrl + '?page=' + $("#pageNum").val() + '&rows=' + $("#pageSize").val() + '&sidx=' + $("#orderByColumn").val() + '&sord=' + $("#orderByType").val();
             }
@@ -320,6 +321,7 @@ var webside = {
                         } else {
                             url = '/user/add.html';
                         }
+                      
                         webside.common.commit('userForm', url, '/user/listUI.html');
                     }
                 });
@@ -370,6 +372,7 @@ var webside = {
                 });
             }
         },
+
         userInfo : {
             initButton : function() {
                 $("#btnEdit").click(function() {

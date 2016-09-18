@@ -150,7 +150,7 @@ public class UserController extends BaseController {
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		try
-		{
+		{	
 			String password = userEntity.getPassword();
 			//获取登录用户
 			HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
@@ -167,6 +167,7 @@ public class UserController extends BaseController {
 			userEntity.setLocked(0);
 			userEntity.setDeleteStatus(0);
 			UserInfoEntity userInfo = new UserInfoEntity();
+			userInfo.setVillage(userEntity.getUserInfo().getVillage());//设置村居信息
 			userEntity.setUserInfo(userInfo);
 			int result = userService.insert(userEntity, password);
 			if(result == 1)

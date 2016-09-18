@@ -443,7 +443,7 @@
 						<idleTimeout>60000</idleTimeout>
 					</httpConnector>
 					<webApp>
-						<contextPath>/wx</contextPath>
+						<contextPath>/webside</contextPath>
 						<!--默认为： /${project.artifactId} -->
 						<defaultsDescriptor>src/main/resources/webdefault.xml</defaultsDescriptor>
 					</webApp>

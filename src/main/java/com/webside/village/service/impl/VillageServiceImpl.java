@@ -23,10 +23,7 @@ public class VillageServiceImpl extends AbstractService<Village, Long> implement
 		super.setBaseMapper(villageMapper);
 	}
 
-	@Override
-	public List<Village> queryListByPage(HashMap<String, Object> hashMap) {
-		return this.villageMapper.queryListByPage(hashMap);
-	}
+
 
 
 	
