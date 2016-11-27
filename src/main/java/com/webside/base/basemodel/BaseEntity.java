@@ -17,6 +17,7 @@ public abstract class BaseEntity implements Serializable{
 	 * id
 	 */
 	protected Long id;
+	
 
 	public Long getId() {
 		return id;
@@ -25,5 +26,8 @@ public abstract class BaseEntity implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+
 	
+		
 }

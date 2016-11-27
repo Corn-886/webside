@@ -215,6 +215,7 @@ var webside = {
                     index = layer.load();
                 },
                 success : function(resultdata) {
+                	console.log(resultdata);
                     layer.close(index);
                     if (resultdata.success) {
                         layer.msg(resultdata.message, {

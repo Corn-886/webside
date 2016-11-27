@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webside.member.mapper.MemberMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+	<sql id="memberAttributes">
+		m_id,
+		m_num,
+		m_name,
+		m_sex,
+		m_QQ,
+		m_entrDate,
+		m_vill,
+		m_school,
+		m_major,
+		m_garDate,
+		m_eduSYStime,
+		m_iniDate,
+		m_phone,
+		m_adress,
+		m_special,
+		m_vid
+	</sql>
+	<resultMap id="memberMap" type="com.webside.member.model.MemberEntity">
+		<id property="id" column="m_id" />
+		<result property="mNum" column="m_num" />
+		<result property="mName" column="m_name" />
+		<result property="mSex" column="m_sex" />
+		<result property="mQq" column="m_QQ" />
+		<result property="mEntrdate" column="m_entrDate" />
+		<result property="mVill" column="m_vill" />
+		<result property="mSchool" column="m_school" />
+		<result property="mMajor" column="m_major" />
+		<result property="mGardate" column="m_garDate" />
+		<result property="mEdusystime" column="m_eduSYStime" />
+		<result property="mInidate" column="m_iniDate" />
+		<result property="mPhone" column="m_phone" />
+		<result property="mAdress" column="m_adress" />
+		<result property="mSpecial" column="m_special" />
+		<result property="mVid" column="m_vid" />
+	</resultMap>
+
+	<select id="queryListByPage" parameterType="long" resultMap="memberMap"
+		useCache="false">
+		SELECT
+		<include refid="memberAttributes"></include>
+		FROM tb_member
+		<where>
+			<if test="villageid != null and villageid != ''">
+				m_vid=#{villageid}
+			</if>
+		</where>
+	</select>
+	<insert id="insert" parameterType="com.webside.member.model.MemberEntity"
+		useGeneratedKeys="true" keyProperty="id">
+		insert ignore into tb_member (
+		m_num,
+		m_name,
+		m_sex,
+		m_QQ,
+		m_entrDate,
+		m_vill,
+		m_school,
+		m_major,
+		m_garDate,
+		m_eduSYStime,
+		m_iniDate,
+		m_phone,
+		m_adress,
+		m_special,
+		m_vid
+		)
+		values (
+		#{mNum},
+		#{mName},
+		#{mSex},
+		#{mQq},
+		#{mEntrdate},
+		#{mVill},
+		#{mSchool},
+		#{mMajor},
+		#{mGardate},
+		#{mEdusystime},
+		#{mInidate},
+		#{mPhone},
+		#{mAdress},
+		#{mSpecial},
+		#{mVid}
+		)
+	</insert>
+</mapper>

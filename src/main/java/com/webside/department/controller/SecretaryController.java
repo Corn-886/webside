@@ -1,4 +1,4 @@
-package com.webside.village.controller;
+package com.webside.department.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,40 +21,71 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.webside.base.basecontroller.BaseController;
+import com.webside.department.model.DepartmentEntity;
+import com.webside.department.model.PositionEntity;
+import com.webside.department.model.SecretaryEntity;
+import com.webside.department.service.DepartmentService;
+import com.webside.department.service.PositionService;
+import com.webside.department.service.SecretaryService;
 import com.webside.dtgrid.model.Pager;
 import com.webside.dtgrid.util.ExportUtils;
 import com.webside.exception.AjaxException;
-import com.webside.role.model.RoleEntity;
+import com.webside.exception.SystemException;
 import com.webside.user.model.UserEntity;
 import com.webside.util.Common;
-import com.webside.util.PageUtil;
-import com.webside.village.mapper.VillageMapper;
 import com.webside.village.model.Village;
-import com.webside.village.service.VillageService;
 
 @Controller
 @Scope("prototype")
-@RequestMapping("/village/")
-public class VillageController extends BaseController {
-	@Autowired
-	VillageService villageservice;
+@RequestMapping(value = "/secretary/")
+public class SecretaryController extends BaseController {
 
+	@Autowired
+	private SecretaryService secretaryService;
+	@Autowired
+	private PositionService positionService;
+	@Autowired
+	private DepartmentService departmentService;
+	@RequestMapping("listUI.html")
+	public String listUI() {
+		try
+		{
+			return Common.BACKGROUND_PATH + "/department/secretary/list";
+		}catch(Exception e)
+		{
+			throw new SystemException(e);
+		}
+	}
+	/**
+	 * 页面跳转
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("addUI.html")
 	public String addUI(Model model) {
 		try {
-			return Common.BACKGROUND_PATH + "/village/form";
+			List<DepartmentEntity> list_d=departmentService.queryListByPage(new HashMap<String, Object>());
+			List<PositionEntity> list_p=positionService.queryListByPage(new HashMap<String, Object>());
+			model.addAttribute("departmentList", list_d);
+			model.addAttribute("positionList", list_p);
+			return Common.BACKGROUND_PATH + "/department/secretary/form";
 		} catch (Exception e) {
 			throw new AjaxException(e);
 		}
 
 	}
-
+	/**
+	 * 保存到数据库操作
+	 * @param secretary
+	 * @return
+	 * @throws AjaxException
+	 */
 	@RequestMapping("add.html")
 	@ResponseBody
-	public Object add(Village village) throws AjaxException {
+	public Object add(SecretaryEntity secretaryEntity) throws AjaxException {
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
-			int result = this.villageservice.insert(village);
+			int result = this.secretaryService.insert(secretaryEntity);
 			if (result == 1) {
 				map.put("success", Boolean.TRUE);
 				map.put("data", null);
@@ -69,24 +100,7 @@ public class VillageController extends BaseController {
 			throw new AjaxException(e);
 		}
 	}
-
-	@RequestMapping("listUI.html")
-	public String listUI(Model model, HttpServletRequest request) {
-		try {
-			PageUtil page = new PageUtil();
-			if (request.getParameterMap().containsKey("page")) {
-				page.setPageNum(Integer.valueOf(request.getParameter("page")));
-				page.setPageSize(Integer.valueOf(request.getParameter("rows")));
-				page.setOrderByColumn(request.getParameter("sidx"));
-				page.setOrderByType(request.getParameter("sord"));
-			}
-			model.addAttribute("page", page);
-			return Common.BACKGROUND_PATH + "/village/list";
-		} catch (Exception e) {
-			throw new AjaxException(e);
-		}
-	}
-
+	
 	/**
 	 * ajax分页动态加载模式
 	 * 
@@ -112,7 +126,7 @@ public class VillageController extends BaseController {
 		if (pager.getIsExport()) {
 			if (pager.getExportAllData()) {
 				// 3.1、导出全部数据
-				List<Village> list = villageservice.queryListByPage(parameters);
+				List<SecretaryEntity> list =secretaryService.queryListByPage(parameters);
 				ExportUtils.exportAll(response, pager, list);
 				return null;
 			} else {
@@ -123,7 +137,7 @@ public class VillageController extends BaseController {
 		} else {
 			// 设置分页，page里面包含了分页信息
 			Page<Object> page = PageHelper.startPage(pager.getNowPage(), pager.getPageSize(), "v_id DESC");
-			List<Village> list = villageservice.queryListByPage(parameters);
+			List<SecretaryEntity> list =secretaryService.queryListByPage(parameters);
 			parameters.clear();
 			parameters.put("isSuccess", Boolean.TRUE);
 			parameters.put("nowPage", pager.getNowPage());

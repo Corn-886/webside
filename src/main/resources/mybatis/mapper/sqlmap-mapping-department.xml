@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webside.department.mapper.DepartmentMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+	<sql id="DepartmentEntityAttributes">
+		d_id,
+		d_name,
+		d_introduce,
+		v_id
+	</sql>
+
+	<resultMap id="departmentMap" type="com.webside.department.model.DepartmentEntity">
+		<id property="id" column="d_id" />
+		<result property="dName" column="d_name" />
+		<result property="dIntroduce" column="d_introduce" />
+		<result property="vId" column="v_id" />
+	</resultMap>
+
+	<select id="queryListByPage" parameterType="map" resultMap="departmentMap"
+		flushCache="true" useCache="true">
+		SELECT
+		<include refid="DepartmentEntityAttributes" />
+		FROM tb_department
+		<where>
+			<if test="villageid != null and villageid != ''">
+				v_id=#{villageid}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="com.webside.department.model.DepartmentEntity"
+		useGeneratedKeys="true" keyProperty="id">
+		insert ignore into tb_department (
+		d_name,
+		d_introduce,
+		v_id
+		)
+		values (
+		#{dName},
+		#{dIntroduce},
+		#{vId}
+		)
+	</insert>
+
+
+</mapper>

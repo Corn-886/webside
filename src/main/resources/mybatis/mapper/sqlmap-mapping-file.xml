@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webside.activity.mapper.FileMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+	<sql id="FileEntityAttributes">
+	f_id,
+	f_createDate,
+	f_createPersion,
+	f_url,
+	f_size
+	</sql>
+
+	<resultMap id="fileMap" type="com.webside.activity.model.FileEntity">
+		<id property="id" column="f_id" />
+		<result property="aId" column="f_createDate" />
+		<result property="aDetailType" column="f_createPersion" />
+		<result property="aDetailFile" column="f_url" />
+		<result property="aDetailFile" column="f_size" />
+	</resultMap>
+	
+		<select id="queryListByPage" parameterType="map" resultMap="fileMap"
+		flushCache="true" useCache="true">
+		SELECT
+		<include refid="FileEntityAttributes" />
+		FROM tb_file
+
+	</select>
+</mapper>

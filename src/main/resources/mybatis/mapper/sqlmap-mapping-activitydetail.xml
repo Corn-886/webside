@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webside.activity.mapper.ActivitydetailMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+	<sql id="ActivitydetailEntityAttributes">
+	a_detail_id,
+	a_id,
+	a_detail_type,
+	a_detail_file
+	</sql>
+
+	<resultMap id="activitydetailMap" type="com.webside.activity.model.Activitydetail">
+		<id property="id" column="a_detail_id" />
+		<result property="aId" column="a_id" />
+		<result property="aDetailType" column="a_detail_type" />
+		<result property="aDetailFile" column="a_detail_file" />
+	</resultMap>
+	
+		<select id="queryListByPage" parameterType="map" resultMap="activitydetailMap"
+		flushCache="true" useCache="true">
+		SELECT
+		<include refid="ActivitydetailEntityAttributes" />
+		FROM tb_activitydetail
+
+	</select>
+</mapper>

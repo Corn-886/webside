@@ -50,7 +50,7 @@
 			<result property="status" column="r_status"/>
 			<result property="description" column="r_description"/>
 			<result property="createTime" column="r_create_time"/>
-			<result property="villageid" column="u_village_id"/>
+			
 		</association>
 		<association property="userInfo" column="id" javaType="com.webside.user.model.UserInfoEntity">
 			<id property="id" column="u_id"/>
@@ -60,7 +60,7 @@
 			<result property="email" column="u_email"/>
 			<result property="address" column="u_address"/>
 			<result property="createTime" column="u_create_time"/>
-			<result property="createTime" column="u_create_time"/>
+			<result property="villageid" column="u_village_id"/>
 			<association property="village" column="id" javaType="com.webside.village.model.Village">
 			<id property="id" column="v_id"/>
 			<id property="vName" column="v_name"/>
@@ -131,8 +131,10 @@
 		r.r_status,
 		r.r_description,
 		r.r_create_time,
-		r.r_update_time
-		FROM tb_user u JOIN tb_role_user ru ON u.u_id = ru.u_id JOIN tb_role r ON ru.r_id = r.r_id 
+		r.r_update_time,
+		us.u_village_id
+		FROM tb_user u JOIN tb_role_user ru ON u.u_id = ru.u_id JOIN tb_role r ON ru.r_id = r.r_id JOIN tb_user_info us ON us.u_id=u.u_id
+	
 		where u.u_account_name = #{name}
 	</select>
 	
@@ -159,7 +161,8 @@
 		i.u_birthday,
 		i.u_telephone,
 		i.u_email,
-		i.u_address
+		i.u_address,
+		i.u_village_id
 		FROM tb_user u JOIN tb_role_user ru ON u.u_id = ru.u_id JOIN tb_role r ON ru.r_id = r.r_id JOIN tb_user_info i ON u.u_id = i.u_id 
 		where u.u_id = ${id}
 		

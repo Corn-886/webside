@@ -1,6 +1,8 @@
 package com.webside.exception.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -89,6 +91,7 @@ public class GlobalDefaultExceptionHandler {
 		logger.error(ex.getMessage(), ex);
 		// 将Ajax异常信息回写到前台，用于页面的提示
 		response.getWriter().write("抱歉,系统异常,请稍后再试!");
+
 	}
 
 }

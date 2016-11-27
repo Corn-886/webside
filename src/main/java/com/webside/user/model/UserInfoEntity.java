@@ -29,6 +29,8 @@ public class UserInfoEntity extends BaseEntity{
 	
 	private Village village;
 	
+	private String villageid;
+	
 	public Integer getSex() {
 		return sex;
 	}
@@ -84,12 +86,25 @@ public class UserInfoEntity extends BaseEntity{
 	public void setVillage(Village village) {
 		this.village = village;
 	}
+	
+	
+	
+	public String getVillageid() {
+		return villageid;
+	}
+
+	public void setVillageid(String villageid) {
+		this.villageid = villageid;
+	}
 
 	@Override
 	public String toString() {
 		return "UserInfoEntity [sex=" + sex + ", birthday=" + birthday + ", telephone=" + telephone + ", email=" + email
-				+ ", address=" + address + ", createTime=" + createTime + ", village=" + village + "]";
+				+ ", address=" + address + ", createTime=" + createTime + ", village=" + village + ", villageid="
+				+ villageid + "]";
 	}
+
+	
 
 	
 

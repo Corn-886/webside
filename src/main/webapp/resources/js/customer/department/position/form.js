@@ -1,21 +1,21 @@
 /**
- * village.js
- */   
-$('#villageForm').validate({
+ * position.js
+ */
+ $('#positionForm').validate({
                     errorElement : 'div',
                     errorClass : 'help-block',
                     focusInvalid : false,
                     ignore : "",
                     rules : {
-                    	villageName : {
+                    	positiontpName : {
                              required : true
                          },
                     },
                     messages : {
-                    	villageName : {
-                            required : "请填写组织名称",                           
+                    	positiontpName : {
+                            required : "请填写名称",                           
                         },
-                        key : "请填写角色标识"
+                        
                     },
                     highlight : function(e) {
                         $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
@@ -28,16 +28,15 @@ $('#villageForm').validate({
                         error.insertAfter(element.parent());
                     },
         			submitHandler : function(form) {
-        				var villageId = $("#villageId").val();
+        				var positionId = $("#positionId").val();
         				var url = "";
-        				if (villageId != undefined) {
-        					url = '/village/edit.html';
+        				if (positionId != undefined) {
+        					url = '/position/edit.html';
         				} else {
-        					url = '/village/add.html';
+        					url = '/position/add.html';
         				}
 
-        				webside.common.commit('villageForm', url,'/village/listUI.html');
+        				webside.common.commit('positionForm', url,'/position/listUI.html');
         			}
 
                 });
-          

@@ -1,19 +1,19 @@
 /**
- * village.js
- */   
-$('#villageForm').validate({
+ * department form.js
+ */
+ $('#departmenForm').validate({
                     errorElement : 'div',
                     errorClass : 'help-block',
                     focusInvalid : false,
                     ignore : "",
                     rules : {
-                    	villageName : {
+                    	departmentname : {
                              required : true
                          },
                     },
                     messages : {
-                    	villageName : {
-                            required : "请填写组织名称",                           
+                    	departmentname : {
+                            required : "请填写部门名称",                           
                         },
                         key : "请填写角色标识"
                     },
@@ -28,16 +28,15 @@ $('#villageForm').validate({
                         error.insertAfter(element.parent());
                     },
         			submitHandler : function(form) {
-        				var villageId = $("#villageId").val();
+        				var departmentId = $("#departmentId").val();
         				var url = "";
-        				if (villageId != undefined) {
-        					url = '/village/edit.html';
+        				if (departmentId != undefined) {
+        					url = '/department/edit.html';
         				} else {
-        					url = '/village/add.html';
+        					url = '/department/add.html';
         				}
 
-        				webside.common.commit('villageForm', url,'/village/listUI.html');
+        				webside.common.commit('departmenForm', url,'/department/listUI.html');
         			}
 
                 });
-          
